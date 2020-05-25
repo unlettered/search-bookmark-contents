@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./css/search_bookmarks.css">
+    </head>
+    <body>
+        <div id="popup" class="popup">
+            <header class="header">Search Bookmark Contents</header>
+            <div id="search-bar" class="search-bar">
+                <input type="text" id="search-text" placeholder="Search..." class="search-text" autofocus/>
+                <button type="submit" id="search-submit" class="search-submit">Search</button>
+            </div>
+            <div id="init-progress" class="init-progress"></div>
+            <ul id="search-content" class="search-content"></ul>
+        </div>
+        <script src="../lib/pouchdb-7.1.1.min.js"></script>
+        <script src="../lib/pouchdb.quick-search.min.js"></script>
+        <script src="./js/constants.js"></script>
+        <script src="./js/search_bookmarks.js"></script>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+{
+    "manifest_version": 2,
+    "name": "search-bookmark-contents",
+    "version": "1.0.0",
+
+    "description": "Search the contents of your bookmarks",
+    "icons": {
+        "48": "src/images/icon_48.png",
+        "96": "src/images/icon_96.png"
+    },
+
+    "permissions": [
+        "<all_urls>",
+        "bookmarks",
+        "storage",
+        "unlimitedStorage"
+    ],
+
+    "background": {
+        "page": "src/background-page.html"
+    },
+
+    "browser_action": {
+        "default_icon": {
+            "16": "src/images/icon_16.png",
+            "32": "src/images/icon_32.png"
+        },
+        "default_title": "Search Bookmark Contents",
+        "default_popup": "src/search_bookmarks.html"
+    }
+}
