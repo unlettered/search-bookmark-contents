@@ -13,17 +13,12 @@ browser.bookmarks.onRemoved.addListener(handleRemoveBookmark);
 /** Event Handlers */
 async function handleCreateBookmark(_, bookmarkInfo) {
   try {
-    await browser.storage.local.set({ "initComplete": false });
     await handleContentFetchQueue(populateIdQueue(bookmarkInfo));
-    const buildRes = await buildIndex();
-    if (buildRes && buildRes.ok) {
-      browser.storage.local.set({ "initComplete": true });
-    }
+    await buildIndex();
   }
   catch (err) {
     console.error(`Error after create bookmark: ${err}`);
   }
-  
 }
 
 async function handleRemoveBookmark(_, removeInfo) {
@@ -57,16 +52,20 @@ async function handleRemoveBookmark(_, removeInfo) {
 /** Helper Functions */
 async function initialise() {
   try {
+    const progress = await browser.storage.local.get("initComplete");
+    if (progress && progress.initComplete) {
+      return;
+    }
     await browser.storage.local.set({ "initComplete": false });
     const bookmarkRoot = getBookmarkRoot(await browser.bookmarks.getTree());
     await handleContentFetchQueue(populateIdQueue(bookmarkRoot));
-    const buildRes = await buildIndex();
-    if (buildRes && buildRes.ok) {
-      await browser.storage.local.set({ "initComplete": true });
-    }
+    await buildIndex();
   }
   catch (err) {
     console.error(`Error initializing data: ${err}`);
+  }
+  finally {
+    await browser.storage.local.set({ "initComplete": true });
   }
 }
 
